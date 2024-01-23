@@ -1,8 +1,8 @@
-List<List<String>> highlightTextInGrid({
+List<List<String>> findtext({
   required List<List<String>> grid,
   required String text,
 }) {
-  void highlightText(List<List<String>> grid, String text) {
+  void highlightfindText(List<List<String>> grid, String text) {
     print(grid);
     int rows = grid.length;
     int cols = grid[0].length;
@@ -16,7 +16,7 @@ List<List<String>> highlightTextInGrid({
           }
           if (temp == text) {
             for (int i = 0; i < text.length; i++) {
-              grid[row][col + i] = '${grid[row][col + i]}*';
+              grid[row][col + i] = '${grid[row][col + i]}.';
             }
           }
         }
@@ -30,7 +30,7 @@ List<List<String>> highlightTextInGrid({
           if (temp == text) {
             for (int i = 0; i < text.length; i++) {
               grid[row + i][col] =
-                  '${grid[row + i][col]}*'; // Highlight with '*'
+                  '${grid[row + i][col]}.'; // Highlight with '*'
             }
           }
         }
@@ -44,7 +44,7 @@ List<List<String>> highlightTextInGrid({
           if (temp == text) {
             for (int i = 0; i < text.length; i++) {
               grid[row + i][col + i] =
-                  '${grid[row + i][col + i]}*'; // Highlight with '*'
+                  '${grid[row + i][col + i]}.'; // Highlight with '*'
             }
           }
         }
@@ -52,10 +52,9 @@ List<List<String>> highlightTextInGrid({
     }
   }
 
-  // Highlight the text in the grid
-  highlightText(grid, text);
+  highlightfindText(grid, text);
   List<List<String>> finalresult = [];
-  // Print the modified grid with highlighted alphabets
+
   for (int row = 0; row < grid.length; row++) {
     finalresult.add(grid[row]);
   }

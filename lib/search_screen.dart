@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_mobigic/logic/convertstringtomatrix.dart';
@@ -21,12 +19,6 @@ class _AlphabetScreenState extends ConsumerState<AlphabetScreen> {
 
   List availablealphabet = [];
   TextEditingController search = TextEditingController();
-  // @override
-  // void initState() {
-  //   log('come');
-  //   resultMatrix = convertintolist(widget.alphabet, widget.m, widget.n);
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +40,7 @@ class _AlphabetScreenState extends ConsumerState<AlphabetScreen> {
                     }
                   });
                   setState(() {
-                    data = highlightTextInGrid(grid: resultMatrix, text: text);
+                    data = findtext(grid: resultMatrix, text: text);
                   });
                   // searchInMatrix("abcd", 4, 3, resultMatrix);
                 },
@@ -83,7 +75,33 @@ class _AlphabetScreenState extends ConsumerState<AlphabetScreen> {
               ),
             ),
             data.isEmpty
-                ? const SizedBox.shrink()
+                ? AspectRatio(
+                    aspectRatio: 1 / 4,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: widget.m == 0 ? 1 : widget.m,
+                      ),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border:
+                                  Border.all(color: Colors.black, width: 2.0)),
+                          child: Center(
+                            child: Text(
+                              widget.alphabet.length != widget.m * widget.n
+                                  ? ""
+                                  : widget.alphabet[index],
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        );
+                      },
+                      itemCount: widget.m * widget.n,
+                    ),
+                  )
                 : AspectRatio(
                     aspectRatio: 1 / 4,
                     child: GridView.builder(
@@ -101,14 +119,11 @@ class _AlphabetScreenState extends ConsumerState<AlphabetScreen> {
                         return GridTile(
                           child: Container(
                             decoration: BoxDecoration(
-                                color: data[rowIndex][colIndex].contains("*")
+                                color: data[rowIndex][colIndex].contains(".")
                                     ? Colors.blueAccent
                                     : Colors.white,
                                 border: Border.all(
                                     color: Colors.black, width: 2.0)),
-                            // color: data[rowIndex][colIndex] == "*"
-                            //     ? Colors.blueAccent
-                            //     : Colors.black,
                             child: Center(
                               child: Text(
                                 data[rowIndex][colIndex],
