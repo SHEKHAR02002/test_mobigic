@@ -153,6 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return Container(
                     decoration: BoxDecoration(
+                        color: Colors.white,
                         border: Border.all(color: Colors.black, width: 2.0)),
                     child: Center(
                       child: Text(
