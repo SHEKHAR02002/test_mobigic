@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:test_mobigic/SearchScreen.dart';
+import 'package:test_mobigic/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,20 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     keyboardType: TextInputType.number,
                     controller: mcontroller,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xff9A9A9A)),
-                          borderRadius: BorderRadius.circular(5)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-
+                    decoration: const InputDecoration(
                       //label
-                      floatingLabelStyle: const TextStyle(
-                          color: Color(0xcc000000),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
-                      label: const Text(
+
+                      label: Text(
                         "No Of M ",
                         style: TextStyle(
                           fontSize: 12,
@@ -68,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       //hint text
                       hintText: 'No of M',
-                      hintStyle: const TextStyle(
+                      hintStyle: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffdddddd)),
@@ -93,20 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     keyboardType: TextInputType.number,
                     controller: ncontroller,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Color(0xff9A9A9A)),
-                          borderRadius: BorderRadius.circular(5)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5)),
-
-                      //label
-                      floatingLabelStyle: const TextStyle(
-                          color: Color(0xcc000000),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400),
-                      label: const Text(
+                    decoration: const InputDecoration(
+                      label: Text(
                         "No Of N ",
                         style: TextStyle(
                           fontSize: 12,
@@ -115,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       //hint text
                       hintText: 'No of N',
-                      hintStyle: const TextStyle(
+                      hintStyle: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
                           color: Color(0xffdddddd)),
@@ -136,25 +114,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.CENTER,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
+                        backgroundColor:
+                            const Color.fromARGB(255, 255, 255, 255),
+                        textColor: Colors.black,
                         fontSize: 16.0);
                   }
                 },
                 controller: alpabet,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide: const BorderSide(color: Color(0xff9A9A9A)),
-                      borderRadius: BorderRadius.circular(5)),
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5)),
-
-                  //label
-                  floatingLabelStyle: const TextStyle(
-                      color: Color(0xcc000000),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
-                  label: const Text(
+                decoration: const InputDecoration(
+                  label: Text(
                     "Enter Text",
                     style: TextStyle(
                       fontSize: 12,
@@ -163,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   //hint text
                   hintText: 'Enter Text',
-                  hintStyle: const TextStyle(
+                  hintStyle: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: Color(0xffdddddd)),
@@ -175,10 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
             const Text("Enter No Of Row & No Column ",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
             const SizedBox(height: 20),
-            SizedBox(
-              height: 1000,
+            AspectRatio(
+              aspectRatio: 1 / 4,
               child: GridView.builder(
-                scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: m == 0 ? 1 : m,
                 ),
@@ -202,18 +170,27 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: AlphabetScreen(
-                        m: m,
-                        n: n,
-                        alphabet: alpabet.text,
-                      )));
+              alpabet.text.isEmpty
+                  ? Fluttertoast.showToast(
+                      msg: "Alpabet Requried",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                      textColor: Colors.black,
+                      fontSize: 16.0)
+                  : Navigator.push(
+                      context,
+                      PageTransition(
+                          type: PageTransitionType.rightToLeft,
+                          child: AlphabetScreen(
+                            m: m,
+                            n: n,
+                            alphabet: alpabet.text,
+                          )));
             },
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(

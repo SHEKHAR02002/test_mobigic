@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:test_mobigic/splashScreen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:test_mobigic/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
