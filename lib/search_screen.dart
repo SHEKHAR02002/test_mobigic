@@ -24,6 +24,22 @@ class _AlphabetScreenState extends ConsumerState<AlphabetScreen> {
   Widget build(BuildContext context) {
     resultMatrix = convertintolist(widget.alphabet, widget.m, widget.n);
     return Scaffold(
+      appBar: AppBar(
+          centerTitle: true,
+          title: const Column(
+            children: [
+              Text('Mobigic Test',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black)),
+              Text('step 5 to 6',
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black)),
+            ],
+          )),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
         child: Column(
@@ -74,6 +90,7 @@ class _AlphabetScreenState extends ConsumerState<AlphabetScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 20),
             data.isEmpty
                 ? AspectRatio(
                     aspectRatio: 1 / 4,
